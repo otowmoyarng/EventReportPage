@@ -1,7 +1,8 @@
 from commonlogger import getLogger, IsDebug
 from datetime import date
 from datetime import timedelta
-from typing import Dict
+from typing import Dict, List, Tuple
+import copy
 import json
 import requests
 
@@ -34,23 +35,25 @@ def CallConnpassAPI(eventdate: str, startindex: int = 0) -> Dict:
         raise e
 
 
-def GetEventData(isDebug: bool = False) -> Dict:
+def GetEventData(isDebug: bool = False) -> Tuple[date, date, List]:
     """[summary]
     イベントデータを取得する
     Args:
         isDebug (bool): DEBUG出力するかどうか
     Returns:
-        (dict): イベントデータ(JSON形式)
+        (date): 抽出日From
+        (date): 抽出日To
+        (List): イベントデータ(JSON形式)
     """
     logger = getLogger(isDebug)
     allevents: Dict = {"events": []}
-    outputdate = date.today().strftime('%Y%m%d')
-    for days in range(0, 1):
-        targetDate = date.today()
-
+    startdate = None
+    enddate = date.today()
+    for days in range(0, 2):
+        startdate = date.today()
         if days > 0:
-            targetDate += timedelta(days=(days * -1))
-        eventdate = targetDate.strftime('%Y%m%d')
+            startdate += timedelta(days=(days * -1))
+        eventdate = startdate.strftime('%Y%m%d')
         logger.debug(f'days:{days}, eventdate:{eventdate}')
 
         try:
@@ -58,11 +61,7 @@ def GetEventData(isDebug: bool = False) -> Dict:
             if len(events) == 0:
                 print(f'eventdate:{eventdate}, is not events')
                 continue
-
-            if len(allevents["events"]) == 0:
-                allevents["events"] = events["events"]
-            else:
-                allevents["events"].append(events["events"])
+            allevents["events"].extend(events["events"])
 
             results_start = events["results_start"]
             results_returned = events["results_returned"]
@@ -86,8 +85,13 @@ def GetEventData(isDebug: bool = False) -> Dict:
             else:
                 raise e
 
-        allevents = sorted(allevents["events"], key=lambda x: -x["accepted"])
+    sortlist = copy.deepcopy(allevents["events"])
+    allevents["events"] = sorted(sortlist, key=lambda x: -x["accepted"])
 
-        if IsDebug():
-            with open(f'../json/ConnpassAPI_{outputdate}.json', 'w', encoding="utf-8") as f:
-                json.dump(allevents, f, indent=4)
+    if IsDebug():
+        outputdate = enddate.strftime('%Y%m%d')
+        with open(f'../json/ConnpassAPI_{outputdate}.json', 'w', encoding="utf-8") as f:
+            json.dump(allevents, f, indent=4)
+
+    # return startdate, enddate, allevents["events"]
+    return startdate, enddate, allevents
