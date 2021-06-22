@@ -1,6 +1,6 @@
 from commonlogger import getLogger, IsDebug
-from datetime import date
-from datetime import timedelta
+from datetime import date, timedelta
+from enum import IntEnum
 from typing import Dict, List, Tuple
 import copy
 import json
@@ -9,12 +9,23 @@ import requests
 url = "https://connpass.com/api/v1/event/"
 
 
+class ReportCycle(IntEnum):
+    """[summary]
+        処理サイクルEnumクラス
+    Args:
+        Enum ([type]): 処理サイクル
+    """
+    Dayly = 1
+    Weekly = 8
+    Monthly = 32
+
+
 def CallConnpassAPI(eventdate: str, startindex: int = 0) -> Dict:
     """[summary]
     ConnpassAPIを実行し、実行結果をJSONで取得する
     Args:
         eventdate (str): 開催日
-        startindex (int): 開始位置　デフォルト0
+        startindex (int): 開始位置 デフォルト0
     Returns:
         (dict): 実行結果
     """
@@ -35,7 +46,7 @@ def CallConnpassAPI(eventdate: str, startindex: int = 0) -> Dict:
         raise e
 
 
-def GetEventData(isDebug: bool = False) -> Tuple[date, date, List]:
+def GetEventData(cycle: ReportCycle, isDebug: bool = False) -> Tuple[date, date, List]:
     """[summary]
     イベントデータを取得する
     Args:
@@ -48,11 +59,10 @@ def GetEventData(isDebug: bool = False) -> Tuple[date, date, List]:
     logger = getLogger(isDebug)
     allevents: Dict = {"events": []}
     startdate = None
-    enddate = date.today()
-    for days in range(0, 2):
-        startdate = date.today()
-        if days > 0:
-            startdate += timedelta(days=(days * -1))
+    enddate = date.today() + timedelta(days=-1)
+    logger.debug(f'cycle:{cycle}')
+    for days in range(1, cycle):
+        startdate = date.today() + timedelta(days=(days * -1))
         eventdate = startdate.strftime('%Y%m%d')
         logger.debug(f'days:{days}, eventdate:{eventdate}')
 
@@ -90,8 +100,7 @@ def GetEventData(isDebug: bool = False) -> Tuple[date, date, List]:
 
     if IsDebug():
         outputdate = enddate.strftime('%Y%m%d')
-        with open(f'../json/ConnpassAPI_{outputdate}.json', 'w', encoding="utf-8") as f:
+        with open(f'./json/ConnpassAPI_{outputdate}.json', 'w', encoding="utf-8") as f:
             json.dump(allevents, f, indent=4)
 
-    # return startdate, enddate, allevents["events"]
     return startdate, enddate, allevents

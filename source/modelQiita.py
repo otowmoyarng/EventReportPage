@@ -20,7 +20,7 @@ def PostQiita(startdate: date, enddate: date, allevents: Dict, isDebug: bool = F
     logger = getLogger(isDebug)
 
     # アクセストークン取得
-    with open("../qiita.token", encoding="utf-8") as f:
+    with open("./qiita.token", encoding="utf-8") as f:
         global TOKEN
         TOKEN = f.read()
     # print(f'TOKEN:{TOKEN}')
@@ -30,7 +30,7 @@ def PostQiita(startdate: date, enddate: date, allevents: Dict, isDebug: bool = F
     }
 
     # リクエストボディを生成する
-    with open("../templete.json", encoding="utf-8") as f:
+    with open("./templete.json", encoding="utf-8") as f:
         item = f.read()
     requestbody = json.loads(item)
 
@@ -56,12 +56,6 @@ def PostQiita(startdate: date, enddate: date, allevents: Dict, isDebug: bool = F
 
     try:
         res = requests.post(BASE_URL, headers=headers, json=body)
-        print(res)
+        print(f'status_code:{res.status_code}, error:{res.text}')
     except Exception as e:
         raise e
-
-
-# if __name__ == "__main__":
-#     startdate = date.today()
-#     enddate = date.today()
-#     PostQiita(startdate, enddate, None)
