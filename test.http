@@ -1,0 +1,39 @@
+### connpassAPI
+
+GET https://connpass.com/api/v1/event/ HTTP/1.1
+        ?ymd=20210702
+        &count=100
+        &order=2
+
+### QiitaAPI fetchTagList
+
+GET https://qiita.com/api/v2/tags HTTP/1.1
+
+### QiitaAPI PostEntry
+
+# POST https://qiita.com/api/v2/items HTTP/1.1
+PATCH https://qiita.com/api/v2/items/b44ada7105fc92ca2a22 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {token}
+ 
+{
+    "body": "# \u7533\u8fbc\u6570TOP5\n\n|\u9806\u4f4d|\u30a4\u30d9\u30f3\u30c8\u540d|\u30b0\u30eb\u30fc\u30d7|\u7533\u8fbc\u6570|\u5b9a\u54e1|\n|:---:|:---|:---|:---:|:---:|\n|:one:|[\u30aa\u30f3\u30e9\u30a4\u30f3\u8b1b\u6f14\u4f1a\u300e\u672c\u5f53\u306b\u4f7f\u308f\u308c\u3066\u3044\u308b\u7d20\u6575\u306a\u6a5f\u68b0\u5b66\u7fd2\u30b7\u30b9\u30c6\u30e0\u6700\u524d\u7dda \u301c\u30a8\u30c3\u30b8\u304b\u3089\u30b9\u30d1\u30b3\u30f3\u307e\u3067\u301c\u300f](https://mlxse.connpass.com/event/217096/)|[\u6a5f\u68b0\u5b66\u7fd2\u5de5\u5b66\u7814\u7a76\u4f1a\uff08MLSE\uff09](https://mlxse.connpass.com/)|343|350|\n|:two:|[iOS Tech Talk \u301c Multi module \u6226\u7565\u5ea7\u8ac7\u4f1a vol.2 \u301c](https://mercari.connpass.com/event/216639/)|[\u30e1\u30eb\u30ab\u30ea\uff0fMercari](https://mercari.connpass.com/)|135||\n|:three:|[JADOG9.0 - 7\u67082\u65e5(\u91d1)15:00-17:30](https://connpass.com/event/213410/)||129|150|\n|:four:|[Azure Machine Learning \u30cf\u30f3\u30ba\u30aa\u30f3 \u30c6\u30ad\u30b9\u30c8\u5206\u985e](https://dllab.connpass.com/event/217143/)|[DEEP LEARNING LAB](https://dllab.connpass.com/)|110|200|\n|:five:|[\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u3092\u5f37\u5316\u3057\u3088\u3046\uff5e\u30df\u30af\u30b7\u30a3\u65b0\u5352\u5185\u5b9a\u8005\u3068\u9762\u63a5\u5b98\u306e\u4f53\u9a13\u8ac7\uff5e](https://mixi.connpass.com/event/215341/)|[\u682a\u5f0f\u4f1a\u793e\u30df\u30af\u30b7\u30a3](https://mixi.connpass.com/)|81|85|",
+    "coediting": false,
+    "private": true,
+    "tags": [
+        {
+            "name": "connpass",
+            "versions": []
+        },
+        {
+            "name": "\u30a4\u30d9\u30f3\u30c8",
+            "versions": []
+        },
+        {
+            "name": "\u30e9\u30f3\u30ad\u30f3\u30b0",
+            "versions": []
+        }
+    ],
+    "title": "2021/07/02\u958b\u50ac Connpass\u30a4\u30d9\u30f3\u30c8\u30e9\u30f3\u30ad\u30f3\u30b0",
+    "tweet": false
+}

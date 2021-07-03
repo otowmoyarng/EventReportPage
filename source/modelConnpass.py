@@ -8,7 +8,6 @@ import requests
 
 url = "https://connpass.com/api/v1/event/"
 
-
 class ReportCycle(IntEnum):
     """[summary]
         処理サイクルEnumクラス
@@ -16,9 +15,8 @@ class ReportCycle(IntEnum):
         Enum ([type]): 処理サイクル
     """
     Dayly = 1
-    Weekly = 8
-    Monthly = 32
-
+    Weekly = 7
+    Monthly = 31
 
 def CallConnpassAPI(eventdate: str, startindex: int = 0) -> Dict:
     """[summary]
@@ -45,7 +43,6 @@ def CallConnpassAPI(eventdate: str, startindex: int = 0) -> Dict:
         print('Error code: ', e.code)
         raise e
 
-
 def GetEventData(cycle: ReportCycle, isDebug: bool = False) -> Tuple[date, date, List]:
     """[summary]
     イベントデータを取得する
@@ -61,6 +58,7 @@ def GetEventData(cycle: ReportCycle, isDebug: bool = False) -> Tuple[date, date,
     startdate = None
     enddate = date.today() + timedelta(days=-1)
     logger.debug(f'cycle:{cycle}')
+    cycle += 1
     for days in range(1, cycle):
         startdate = date.today() + timedelta(days=(days * -1))
         eventdate = startdate.strftime('%Y%m%d')
@@ -100,7 +98,7 @@ def GetEventData(cycle: ReportCycle, isDebug: bool = False) -> Tuple[date, date,
 
     if IsDebug():
         outputdate = enddate.strftime('%Y%m%d')
-        with open(f'./json/ConnpassAPI_{outputdate}.json', 'w', encoding="utf-8") as f:
+        with open(f'../json/ConnpassAPI_{outputdate}.json', 'w', encoding="utf-8") as f:
             json.dump(allevents, f, indent=4)
 
     return startdate, enddate, allevents

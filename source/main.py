@@ -3,7 +3,6 @@ from modelConnpass import GetEventData, ReportCycle
 from modelQiita import PostQiita
 import sys
 
-
 if __name__ == "__main__":
 
     isDebug = (len(sys.argv) > 1)

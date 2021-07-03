@@ -1,6 +1,5 @@
 import logging
 
-
 def getLogger(isDebug: bool = False) -> logging.Logger:
     """[summary]
         ロガーを初期化する
@@ -15,7 +14,6 @@ def getLogger(isDebug: bool = False) -> logging.Logger:
     else:
         logger.setLevel(logging.INFO)
     return logger
-
 
 def IsDebug() -> bool:
     """[summary]

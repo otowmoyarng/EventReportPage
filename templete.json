@@ -1,20 +1,19 @@
 {
-    "body": "# TOP5（申込数順）\\n\\n|順位|イベント名|グループ|申込数|定員|\\n|:---:|:---|:---|:---:|:---:|",
+    "body": "# 申込数TOP5\n\n|順位|イベント名|グループ|申込数|定員|\n|:---:|:---|:---|:---:|:---:|",
     "coediting": false,
-    "group_url_name": "",
     "private": true,
     "tags": [
         {
-            "name": "connpass"
+            "name": "connpass",
+            "versions": []
         },
         {
-            "name": "イベント"
+            "name": "イベント",
+            "versions": []
         },
         {
-            "name": "ランキング"
-        },
-        {
-            "name": "test"
+            "name": "ランキング",
+            "versions": []
         }
     ],
     "title": "開催 Connpassイベントランキング",
