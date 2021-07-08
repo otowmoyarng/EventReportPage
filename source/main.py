@@ -3,7 +3,8 @@ from modelConnpass import GetEventData, ReportCycle
 from modelQiita import PostQiita
 import sys
 
-def main():
+
+def main(event=None, context=None):
 
     isDebug = (len(sys.argv) > 1)
     # ロギング
@@ -14,6 +15,7 @@ def main():
 
     # イベントデータをQiitaに送信する
     PostQiita(startdate, enddate, allevents, isDebug)
+
 
 if __name__ == "__main__":
     main()
