@@ -56,8 +56,9 @@ def PostQiita(startdate: date, enddate: date, allevents: Dict, isDebug: bool = F
     jsonbody["title"] = title
     logger.debug(f'body={jsonbody}')
 
-    with open(f'../json/QiitaAPI_requestbody_{enddate}.json', 'w', encoding="utf-8") as f:
-        json.dump(jsonbody, f, indent=4)
+    if IsDebug():
+        with open(f'../json/QiitaAPI_requestbody_{enddate}.json', 'w', encoding="utf-8") as f:
+            json.dump(jsonbody, f, indent=4)
 
     try:
         res = client.create_item(params=jsonbody)
