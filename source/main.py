@@ -4,7 +4,7 @@ from modelQiita import PostQiita
 import base64
 import sys
 
-def hello_pubsub(event, context):
+def run_pubsub(event, context):
     print("EventReportPage start")
     main()
     print("EventReportPage finish")
